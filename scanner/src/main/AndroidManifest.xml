@@ -13,14 +13,16 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+
         <activity android:name=".CardScannerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+
+                <action android:name="com.pereginiak.cardscanner.CardScannerActivity"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
-
 <!--
-
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -33,8 +35,16 @@
             </intent-filter>
             <meta-data android:name="android.nfc.action.TECH_DISCOVERED" android:resource="@xml/nfc_tech_filter"/>
 -->
-
         </activity>
+
+<!--
+        <activity android:name=".CardScannerActivity">
+            <intent-filter>
+                <action android:name="com.pereginiak.cardscanner.CardScannerActivity"></action>
+                <category android:name="android.intent.category.DEFAULT"></category>
+            </intent-filter>
+        </activity>
+-->
     </application>
 
 </manifest>

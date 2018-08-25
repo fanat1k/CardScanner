@@ -9,6 +9,8 @@ import android.nfc.NfcAdapter;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 public class CardScannerActivity extends AppCompatActivity {
@@ -31,7 +33,6 @@ public class CardScannerActivity extends AppCompatActivity {
 
         if (nfcAdapter == null) {
             Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
-            finish();
         } else {
             pendingIntent = PendingIntent.getActivity(this, 0,
                     new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
@@ -52,7 +53,7 @@ public class CardScannerActivity extends AppCompatActivity {
         //showAlert("onNewIntent");
 
         //TODO(kasian @2018-08-24): what's the goal to set?
-        setIntent(intent);
+        //setIntent(intent);
 
         handleIntent(intent);
 
@@ -66,13 +67,13 @@ public class CardScannerActivity extends AppCompatActivity {
         sendResponse(nfcTagInfo);
     }
 
-    private void sendResponse(String nfcTagInfo) {
-        if (nfcTagInfo == null) {
-            nfcTagInfo = "ERROR";
+    private void sendResponse(String message) {
+        if (message == null) {
+            message = "ERROR";
         }
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(RESULT_NAME, nfcTagInfo);
+        returnIntent.putExtra(RESULT_NAME, message);
         setResult(Activity.RESULT_OK, returnIntent);
     }
 
@@ -90,6 +91,12 @@ public class CardScannerActivity extends AppCompatActivity {
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
+    }
+
+    public void sendToCallingApp(View view) {
+        String message = ((EditText) findViewById(R.id.textToSend)).getText().toString();
+        sendResponse(message);
+        finish();
     }
 
     private void showAlert(String message) {

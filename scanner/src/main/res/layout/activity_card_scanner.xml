@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,6 +9,28 @@
         android:gravity="center"
         tools:context="com.pereginiak.cardscanner.CardScannerActivity">
 
+    <EditText
+            android:layout_width="173dp"
+            android:layout_height="43dp"
+            android:inputType="textPersonName"
+            android:text=""
+            android:ems="10"
+            android:id="@+id/textToSend"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="parent"
+            android:layout_alignParentTop="true" android:layout_alignParentStart="true" android:layout_marginStart="24dp"
+            android:layout_marginTop="36dp"/>
+
+    <Button
+            android:text="Send to 1C"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendTo1c"
+            app:layout_constraintTop_toTopOf="parent"
+            style="@style/Widget.AppCompat.Button" android:onClick="sendToCallingApp"
+            app:layout_constraintStart_toEndOf="@+id/textToSend"
+            android:layout_alignParentTop="true" android:layout_alignEnd="@+id/textToSend" android:layout_marginTop="32dp"
+            android:layout_marginStart="60dp"/>
+
     <TextView
             android:text="@string/scan_message"
             android:layout_width="wrap_content"
@@ -16,5 +38,6 @@
             android:id="@+id/textView"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"/>
-</RelativeLayout>
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" tools:layout_editor_absoluteY="232dp"
+            tools:layout_editor_absoluteX="16dp"/>
+</android.support.constraint.ConstraintLayout>
