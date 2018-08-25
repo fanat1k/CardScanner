@@ -7,13 +7,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
-public class CardScannerActivity extends AppCompatActivity {
+public class CardScannerActivity extends Activity {
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
     private NFCReader nfcReader;
@@ -34,8 +31,12 @@ public class CardScannerActivity extends AppCompatActivity {
         if (nfcAdapter == null) {
             Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
         } else {
-            pendingIntent = PendingIntent.getActivity(this, 0,
-                    new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+            pendingIntent = PendingIntent.getActivity(
+                    this,
+                    0,
+                    new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP),
+                    0
+            );
 
             if (!nfcAdapter.isEnabled()) {
                 Log.w(Constants.LOG_TAG, "NFC is disabled on this device");
@@ -49,31 +50,20 @@ public class CardScannerActivity extends AppCompatActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Log.i(Constants.LOG_TAG, "onNewIntent");
-        //showAlert("onNewIntent");
-
-        //TODO(kasian @2018-08-24): what's the goal to set?
-        //setIntent(intent);
-
+        Log.i(Constants.LOG_TAG, "onNewIntent:" + intent);
         handleIntent(intent);
-
         finish();
     }
 
     private void handleIntent(Intent intent) {
         String nfcTagInfo = nfcReader.readNfcTag(intent);
-        //showAlert("handle Intent:" + nfcTagInfo);
 
-        sendResponse(nfcTagInfo);
-    }
-
-    private void sendResponse(String message) {
-        if (message == null) {
-            message = "ERROR";
+        if (nfcTagInfo == null) {
+            nfcTagInfo = "ERROR";
         }
 
         Intent returnIntent = new Intent();
-        returnIntent.putExtra(RESULT_NAME, message);
+        returnIntent.putExtra(RESULT_NAME, nfcTagInfo);
         setResult(Activity.RESULT_OK, returnIntent);
     }
 
@@ -91,12 +81,6 @@ public class CardScannerActivity extends AppCompatActivity {
         if (nfcAdapter != null) {
             nfcAdapter.enableForegroundDispatch(this, pendingIntent, null, null);
         }
-    }
-
-    public void sendToCallingApp(View view) {
-        String message = ((EditText) findViewById(R.id.textToSend)).getText().toString();
-        sendResponse(message);
-        finish();
     }
 
     private void showAlert(String message) {

@@ -9,13 +9,14 @@
         android:gravity="center"
         tools:context="com.pereginiak.cardscanner.CardScannerMainActivity">
 
-    <TextView
-            android:text="@string/scan_message"
+    <Button
+            android:text="@string/open_id_scanner"
+            android:id="@+id/open_id_scanner"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/textView"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1" tools:layout_editor_absoluteY="232dp"
-            tools:layout_editor_absoluteX="16dp"/>
+            style="@style/Widget.AppCompat.Button" android:onClick="startIdScanner"
+    />
+
 </RelativeLayout>

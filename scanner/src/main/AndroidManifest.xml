@@ -14,14 +14,12 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
 
-        <activity android:name=".CardScannerActivity">
+        <activity android:name=".CardScannerMainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
-
-                <action android:name="com.pereginiak.cardscanner.CardScannerActivity"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
+
 <!--
             <intent-filter>
                 <action android:name="android.nfc.action.NDEF_DISCOVERED"/>
@@ -37,14 +35,13 @@
 -->
         </activity>
 
-<!--
         <activity android:name=".CardScannerActivity">
             <intent-filter>
                 <action android:name="com.pereginiak.cardscanner.CardScannerActivity"></action>
                 <category android:name="android.intent.category.DEFAULT"></category>
             </intent-filter>
         </activity>
--->
+
     </application>
 
 </manifest>

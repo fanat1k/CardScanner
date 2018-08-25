@@ -10,19 +10,21 @@ import android.util.Log;
 class NFCReaderImpl implements NFCReader {
     @Override
     public String readNfcTag(Intent intent) {
-        Log.i(Constants.LOG_TAG, "readNfcTag");
-
         String action = intent.getAction();
         if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_TECH_DISCOVERED.equals(action)
                 || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(action)) {
 
-            Log.i(Constants.LOG_TAG, "discovered");
-            Tag myTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-            return dumpTagData(myTag, action);
+            Tag nfcTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
+            Log.i(Constants.LOG_TAG, "discovered NFC tag:" + nfcTag);
+
+            String tagData = dumpTagData(nfcTag, action);
+            Log.i(Constants.LOG_TAG, "tag data string:" + tagData);
+
+            return tagData;
         }
 
-        Log.e(Constants.LOG_TAG, "failed to read NFC tag");
+        Log.e(Constants.LOG_TAG, "failed to read NFC tag; action:" + action);
         return null;
     }
 

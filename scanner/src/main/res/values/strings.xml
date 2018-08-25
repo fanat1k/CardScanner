@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">CardScanner</string>
-    <string name="scan_message">Scan your ID...</string>
+    <string name="scan_message">Scan your ID…</string>
+    <string name="open_id_scanner">Open ID Scanner</string>
 </resources>
