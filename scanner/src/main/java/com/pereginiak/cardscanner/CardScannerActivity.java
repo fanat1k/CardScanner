@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.IOException;
+
 public class CardScannerActivity extends Activity {
     private NfcAdapter nfcAdapter;
     private PendingIntent pendingIntent;
@@ -29,7 +31,7 @@ public class CardScannerActivity extends Activity {
         init();
 
         if (nfcAdapter == null) {
-            Toast.makeText(this, "This device doesn't support NFC.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "This device doesn't support NFC", Toast.LENGTH_LONG).show();
         } else {
             pendingIntent = PendingIntent.getActivity(
                     this,
@@ -50,21 +52,25 @@ public class CardScannerActivity extends Activity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
 
-        Log.i(Constants.LOG_TAG, "onNewIntent:" + intent);
+        Log.i(Constants.LOG_TAG, "onNewIntent=" + intent);
         handleIntent(intent);
         finish();
     }
 
     private void handleIntent(Intent intent) {
-        String nfcTagInfo = nfcReader.readNfcTag(intent);
+        try {
+            String nfcTagInfo = nfcReader.readNfcTag(intent);
+            //if (nfcTagInfo == null) {
+            //    nfcTagInfo = "ERROR";
+            //}
 
-        if (nfcTagInfo == null) {
-            nfcTagInfo = "ERROR";
+            Intent returnIntent = new Intent();
+            returnIntent.putExtra(RESULT_NAME, nfcTagInfo);
+            setResult(Activity.RESULT_OK, returnIntent);
+        } catch (IOException e) {
+            Log.e(Constants.LOG_TAG, "Can not read tag, e=", e);
         }
 
-        Intent returnIntent = new Intent();
-        returnIntent.putExtra(RESULT_NAME, nfcTagInfo);
-        setResult(Activity.RESULT_OK, returnIntent);
     }
 
     @Override
